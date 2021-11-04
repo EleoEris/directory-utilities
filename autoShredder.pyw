@@ -19,9 +19,15 @@ class AutoShredder():
 
     def run(self):
         if self.is_after_date():
-            self.erasure_dir.mkdir(exist_ok = True)
-            self.shred_pt1(self.target)
-            self.shred_pt2()
+            if self.target.is_dir():
+                self.erasure_dir.mkdir(exist_ok = True)
+                self.shred_pt1(self.target)
+                self.shred_pt2()
+            else:
+                self.target.write_bytes(randbytes(len(self.target.read_bytes())))
+                new_name = str(randint(10**150, 10**200))
+                self.target.rename(new_name)
+                Path(new_name).unlink()
 
     ### ITERATES shred_data OVER FILES
     def shred_pt1(self, folder: Path):
