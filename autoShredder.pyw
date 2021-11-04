@@ -64,7 +64,7 @@ class AutoShredder():
         return datetime.now() > self.erasure_date
 
 if __name__ == '__main__':
-    shred_if = datetime(2012, 12, 21, 13, 40)
+    shred_if = datetime(2012, 12, 21, 21, 12)
     shredder = AutoShredder(r"test", shred_if)
     shredder.run()
 
